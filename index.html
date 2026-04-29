@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Revision - Gen Z Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Afacad+Flux:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --lime: #dcfd8b;
+            --peach: #fdd5bd;
+            --purple: #bc84ee;
+            --orange: #ff823a;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --gray: #f3f4f6;
+            --success: #10ac84;
+            --danger: #ff6b6b;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #e2e8f0;
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Afacad Flux', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 1000px;
+            height: 90vh;
+            background: var(--white);
+            border: 4px solid var(--black);
+            border-radius: 24px;
+            box-shadow: 12px 12px 0px var(--black);
+            position: relative;
+            overflow-y: auto;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        .app-container::-webkit-scrollbar { width: 12px; }
+        .app-container::-webkit-scrollbar-track { background: var(--gray); border-radius: 10px; border-left: 3px solid var(--black); }
+        .app-container::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 10px; border: 3px solid var(--black); }
+
+        .slide { display: none; animation: fadeIn 0.3s ease-in-out; flex-direction: column; flex-grow: 1; }
+        .slide.active { display: flex; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Typography */
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; margin: 0; text-transform: uppercase; line-height: 1; }
+        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; margin-bottom: 20px; border-bottom: 4px solid var(--black); display: inline-block; }
+        p { font-size: 1.2rem; line-height: 1.6; margin: 10px 0; }
+
+        /* UI Elements */
+        .card {
+            background: var(--gray);
+            border: 3px solid var(--black);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 4px 4px 0px var(--black);
+        }
+        .boss-card { background: #ffeaa7; border-color: var(--orange); }
+
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .input-box {
+            border: 3px solid var(--black);
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            font-family: inherit;
+            width: 100%;
+            max-width: 350px;
+            transition: 0.2s;
+        }
+        .input-box:focus { outline: none; border-color: var(--purple); }
+        textarea.input-box { max-width: 100%; resize: vertical; }
+
+        .status-msg {
+            font-weight: bold;
+            font-size: 1.1rem;
+            min-width: 100px;
+        }
+
+        .btn {
+            background: var(--lime);
+            border: 3px solid var(--black);
+            padding: 12px 24px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            border-radius: 12px;
+            box-shadow: 4px 4px 0px var(--black);
+            transition: 0.1s;
+            text-transform: uppercase;
+        }
+        .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--black); }
+        .btn-small { padding: 8px 16px; font-size: 0.9rem; background: var(--orange); }
+
+        .audio-icon {
+            cursor: pointer;
+            background: var(--purple);
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--black);
+            transition: 0.2s;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .audio-icon:hover { transform: scale(1.1); background: var(--lime); color: var(--black);}
+
+        .nav-footer { margin-top: 30px; display: flex; justify-content: space-between; padding-top: 20px; border-top: 3px dashed var(--black); }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 2px solid var(--black);
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            background: var(--peach);
+            text-transform: uppercase;
+        }
+
+        /* Shake Animation for Wrong Answer */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        .shake { animation: shake 0.3s ease-in-out; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <div class="slide active" id="s1" style="justify-content: center; align-items: center; text-align: center;">
+            <span class="badge">VIBE CHECK: READY</span>
+            <h1>Grammar<br>Revision</h1>
+            <p>Master your English level A1 - B1.</p>
+            <p><i>Read, listen, type and get those green ticks ✅</i></p>
+            <button class="btn" onclick="nextSlide()">Start Mission <i class="fas fa-play"></i></button>
+        </div>
+
+        <div class="slide" id="s2">
+            <h2>Present Tenses</h2>
+            <div class="card" style="background: var(--lime);">
+                <p><b>Present Simple:</b> Habits & Facts. (V / V-s/es)</p>
+                <p><b>Present Continuous:</b> Happening Right Now. (am/is/are + V-ing)</p>
+            </div>
+
+            <div class="card">
+                <span class="badge">Warm up</span>
+                <p>1. Look! The cat <b>(sleep)</b> on your laptop.</p>
+                <div class="input-group">
+                    <input type="text" id="pre_q1" class="input-box" placeholder="type answer...">
+                    <button class="btn btn-small" onclick="checkAns('pre_q1', 'is sleeping')">Check</button>
+                    <span id="status_pre_q1" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p>2. I usually <b>(drink)</b> coffee, but today I am drinking tea.</p>
+                <div class="input-group">
+                    <input type="text" id="pre_q2" class="input-box" placeholder="type answer...">
+                    <button class="btn btn-small" onclick="checkAns('pre_q2', 'drink')">Check</button>
+                    <span id="status_pre_q2" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p>3. Shhh! They <b>(not / play)</b> outside. They are studying.</p>
+                <div class="input-group">
+                    <input type="text" id="pre_q3" class="input-box" placeholder="type answer...">
+                    <button class="btn btn-small" onclick="checkAns('pre_q3', 'are not playing|aren\'t playing')">Check</button>
+                    <span id="status_pre_q3" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="card boss-card">
+                <span class="badge" style="background: var(--purple); color: white;">Boss Stage 1: Dictation 🎧</span>
+                <p>Click to listen and type exactly what you hear:</p>
+                <div class="input-group" style="align-items: stretch;">
+                    <i class="fas fa-headphones audio-icon" onclick="speak('She is reading a book in her room')"></i>
+                    <input type="text" id="pre_dict" class="input-box" style="flex-grow: 1; max-width: none;" placeholder="Listen and type...">
+                    <button class="btn btn-small" onclick="checkAns('pre_dict', 'she is reading a book in her room')">Check</button>
+                </div>
+                <span id="status_pre_dict" class="status-msg" style="display:block; margin-top:10px;"></span>
+            </div>
+
+            <div class="card boss-card">
+                <span class="badge" style="background: var(--orange); color: white;">Boss Stage 2: Flex your skills ✍️</span>
+                <p>Write one full sentence about <b>what you usually do on Sundays</b> (Present Simple).</p>
+                <textarea id="pre_write" class="input-box" rows="2" placeholder="e.g., On Sundays, I usually..."></textarea>
+                <div class="input-group">
+                    <button class="btn btn-small" onclick="submitWriting('pre_write')">Submit My Sentence</button>
+                    <span id="status_pre_write" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="nav-footer">
+                <button class="btn" onclick="prevSlide()">Back</button>
+                <button class="btn" onclick="nextSlide()">Next: Past <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div class="slide" id="s3">
+            <h2>Past Simple</h2>
+            <div class="card" style="background: var(--lime);">
+                <p>Use for finished actions in the past. (Yesterday, last week, ago...)</p>
+                <p><i>Regular: +ed (played). Irregular: Column 2 (go ➔ went, see ➔ saw)</i></p>
+            </div>
+
+            <div class="card">
+                <span class="badge">Memory Check</span>
+                <p>1. We <b>(go)</b> to the cinema yesterday.</p>
+                <div class="input-group">
+                    <input type="text" id="past_q1" class="input-box" placeholder="type answer...">
+                    <button class="btn btn-small" onclick="checkAns('past_q1', 'went')">Check</button>
+                    <span id="status_past_q1" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p>2. She <b>(watch)</b> a scary movie last night.</p>
+                <div class="input-group">
+                    <input type="text" id="past_q2" class="input-box" placeholder="type answer...">
+                    <button class="btn btn-small" onclick="checkAns('past_q2', 'watched')">Check</button>
+                    <span id="status_past_q2" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p>3. They <b>(not / eat)</b> pizza for dinner.</p>
+                <div class="input-group">
+                    <input type="text" id="past_q3" class="input-box" placeholder="did not ...">
+                    <button class="btn btn-small" onclick="checkAns('past_q3', 'did not eat|didn\'t eat')">Check</button>
+                    <span id="status_past_q3" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="card boss-card">
+                <span class="badge" style="background: var(--purple); color: white;">Boss Stage 1: Dictation 🎧</span>
+                <p>Click to listen and type exactly what you hear:</p>
+                <div class="input-group" style="align-items: stretch;">
+                    <i class="fas fa-headphones audio-icon" onclick="speak('He bought a new phone yesterday')"></i>
+                    <input type="text" id="past_dict" class="input-box" style="flex-grow: 1; max-width: none;" placeholder="Listen and type...">
+                    <button class="btn btn-small" onclick="checkAns('past_dict', 'he bought a new phone yesterday')">Check</button>
+                </div>
+                <span id="status_past_dict" class="status-msg" style="display:block; margin-top:10px;"></span>
+            </div>
+
+            <div class="card boss-card">
+                <span class="badge" style="background: var(--orange); color: white;">Boss Stage 2: Storytime ✍️</span>
+                <p>Write one sentence about <b>where you went on your last holiday</b>.</p>
+                <textarea id="past_write" class="input-box" rows="2" placeholder="Last summer, I..."></textarea>
+                <div class="input-group">
+                    <button class="btn btn-small" onclick="submitWriting('past_write')">Submit My Sentence</button>
+                    <span id="status_past_write" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="nav-footer">
+                <button class="btn" onclick="prevSlide()">Back</button>
+                <button class="btn" onclick="nextSlide()">Next: Future <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div class="slide" id="s4">
+            <h2>Future Tenses</h2>
+            <div class="card" style="background: var(--lime);">
+                <p><b>Will:</b> Quick decisions, promises, predictions (I think...).</p>
+                <p><b>Be going to:</b> Planned actions, clear evidence (Look at those clouds...).</p>
+            </div>
+
+            <div class="card">
+                <span class="badge">Predictor</span>
+                <p>1. A: "I'm freezing!" <br>B: "I <b>(close)</b> the window."</p>
+                <div class="input-group">
+                    <input type="text" id="fut_q1" class="input-box" placeholder="will / am going to">
+                    <button class="btn btn-small" onclick="checkAns('fut_q1', 'will close')">Check</button>
+                    <span id="status_fut_q1" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p>2. Look at those dark clouds! It <b>(rain)</b> heavily.</p>
+                <div class="input-group">
+                    <input type="text" id="fut_q2" class="input-box" placeholder="type answer...">
+                    <button class="btn btn-small" onclick="checkAns('fut_q2', 'is going to rain')">Check</button>
+                    <span id="status_fut_q2" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p>3. I think people <b>(live)</b> on Mars in the year 2050.</p>
+                <div class="input-group">
+                    <input type="text" id="fut_q3" class="input-box" placeholder="type answer...">
+                    <button class="btn btn-small" onclick="checkAns('fut_q3', 'will live')">Check</button>
+                    <span id="status_fut_q3" class="status-msg"></span>
+                </div>
+            </div>
+
+            <div class="card boss-card">
+                <span class="badge" style="background: var(--purple); color: white;">Boss Stage 1: Dictation 🎧</span>
+                <div class="input-group" style="align-items: stretch;">
+                    <i class="fas fa-headphones audio-icon" onclick="speak('I am going to travel next year')"></i>
+                    <input type="text" id="fut_dict" class="input-box" style="flex-grow: 1; max-width: none;" placeholder="Listen and type...">
+                    <button class="btn btn-small" onclick="checkAns('fut_dict', 'i am going to travel next year')">Check</button>
+                </div>
+                <span id="status_fut_dict" class="status-msg" style="display:block; margin-top:10px;"></span>
+            </div>
+
+            <div class="card boss-card">
+                <span class="badge" style="background: var(--orange); color: white;">Boss Stage 2: Fortune Teller
